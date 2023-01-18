@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.traceebee_users_app">
+    package="com.tracebee.user">
    <application
         android:label="TraceeBee User"
         android:name="${applicationName}"

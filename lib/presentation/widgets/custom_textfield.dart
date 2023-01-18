@@ -1,16 +1,24 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:traceebee_users_app/utlis/text_styles.dart';
 
 class CustomTextfield extends StatelessWidget {
-  const CustomTextfield({super.key, this.hintText});
+  const CustomTextfield({
+    Key? key,
+    this.hintText,
+    this.controller,
+  }) : super(key: key);
   final String? hintText;
+  final TextEditingController? controller;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 40.h,
       width: 300.w,
-      child: TextField(
+      child: TextFormField(
+        controller: controller,
         style: subHeadingStyle,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(horizontal: 20.sp),

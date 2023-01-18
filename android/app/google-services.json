@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1010579740734:android:6f7f2a9915c31d0563596f",
+        "mobilesdk_app_id": "1:1010579740734:android:dc26fc1a142937d563596f",
         "android_client_info": {
-          "package_name": "com.example.traceebee_users_app"
+          "package_name": "com.example.traceebee_admin_app"
         }
       },
       "oauth_client": [
@@ -29,6 +29,49 @@
             {
               "client_id": "1010579740734-nepjn2bpre8jhobq8c6eiup8ipqoofvj.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1010579740734-23d1af4v41bhan329at3k9m66p0g6hrj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.traceebeeAdminApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1010579740734:android:c3c477edc406442263596f",
+        "android_client_info": {
+          "package_name": "com.tracebee.user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1010579740734-nepjn2bpre8jhobq8c6eiup8ipqoofvj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPg1IKGt3N_djkUf13g4ee1vCWc-ZUxoU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1010579740734-nepjn2bpre8jhobq8c6eiup8ipqoofvj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1010579740734-23d1af4v41bhan329at3k9m66p0g6hrj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.traceebeeAdminApp"
+              }
             }
           ]
         }
