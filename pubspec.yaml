@@ -2,29 +2,12 @@ name: traceebee_users_app
 description: A new Flutter project.
 
 
-
 publish_to: 'none' 
-
-
-
-
-
-
-
-
-
-
-
-
 
 version: 1.0.0+1
 
 environment:
   sdk: '>=2.18.4 <3.0.0'
-
-
-
-
 
 
 
@@ -43,6 +26,7 @@ dependencies:
   firebase_core: ^2.4.1
   shared_preferences: ^2.0.16
   cloud_firestore: ^4.3.1
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

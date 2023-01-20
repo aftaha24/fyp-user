@@ -9,15 +9,24 @@ class CustomTextfield extends StatelessWidget {
     Key? key,
     this.hintText,
     this.controller,
+    this.onTap,
+    this.keyboardType = TextInputType.name,
+    this.readOnly = false,
   }) : super(key: key);
   final String? hintText;
   final TextEditingController? controller;
+  final bool readOnly;
+  final Function()? onTap;
+  final TextInputType? keyboardType;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 40.h,
       width: 300.w,
       child: TextFormField(
+        keyboardType: keyboardType,
+        onTap: onTap,
+        readOnly: readOnly,
         controller: controller,
         style: subHeadingStyle,
         decoration: InputDecoration(
