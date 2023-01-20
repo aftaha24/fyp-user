@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:traceebee_users_app/presentation/auth-screen/login_screen.dart';
 import 'package:traceebee_users_app/presentation/hive-screens/hive_analysis.dart';
 import 'package:traceebee_users_app/presentation/hive-screens/hive_screen.dart';
 import 'package:traceebee_users_app/presentation/home-screen/about_us_screen.dart';
@@ -8,6 +9,7 @@ import 'package:traceebee_users_app/presentation/home-screen/home_screen.dart';
 import 'package:traceebee_users_app/presentation/home-screen/stingless_bee_info_screen.dart';
 import 'package:traceebee_users_app/presentation/home-screen/track_screen.dart';
 import 'package:traceebee_users_app/providers/home-provider/home_provider.dart';
+import 'package:traceebee_users_app/services/local_service.dart';
 import 'package:traceebee_users_app/utlis/colors.dart';
 import 'package:traceebee_users_app/utlis/text_styles.dart';
 
@@ -315,9 +317,20 @@ class CustomScaffold extends StatelessWidget {
                               SizedBox(
                                 height: 20.h,
                               ),
-                              Text(
-                                "LOG OUT",
-                                style: headingStyle.copyWith(fontSize: 20.sp),
+                              GestureDetector(
+                                onTap: (() {
+                                  LocalService().removeSharedService();
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const LoginScreen(),
+                                    ),
+                                  );
+                                }),
+                                child: Text(
+                                  "LOG OUT",
+                                  style: headingStyle.copyWith(fontSize: 20.sp),
+                                ),
                               ),
                             ],
                           ),
