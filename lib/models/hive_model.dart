@@ -4,6 +4,7 @@ class HiveModel {
   String? createdAt;
   String? driveLink;
   String? userID;
+  String? amountHoney;
 
   HiveModel({
     this.hiveNumber,
@@ -11,6 +12,7 @@ class HiveModel {
     this.createdAt,
     this.driveLink,
     this.userID,
+    this.amountHoney,
   });
 
   Map<String, dynamic> toMap() {
@@ -20,6 +22,7 @@ class HiveModel {
       'createdAt': createdAt,
       'driveLink': driveLink,
       'userID': userID,
+      'amountHoney': amountHoney,
     };
   }
 
@@ -31,6 +34,8 @@ class HiveModel {
       createdAt: map['createdAt'] != null ? map['createdAt'] as String : null,
       driveLink: map['driveLink'] != null ? map['driveLink'] as String : null,
       userID: map['userID'] != null ? map['userID'] as String : null,
+      amountHoney:
+          map['amountHoney'] != null ? map['amountHoney'] as String : null,
     );
   }
 }

@@ -97,10 +97,10 @@ class _BeeKeepersInfoScreenState extends State<BeeKeepersInfoScreen> {
                                           SizedBox(
                                             height: 10.h,
                                           ),
-                                          // Text(
-                                          //   'beeKeepersList.size',
-                                          //   style: subHeadingStyle,
-                                          // ),
+                                          Text(
+                                            hive.amountHoney ?? '0',
+                                            style: subHeadingStyle,
+                                          ),
                                           SizedBox(
                                             height: 10.h,
                                           ),

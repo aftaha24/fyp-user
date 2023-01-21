@@ -31,9 +31,11 @@ class FireStoreService {
       return 'Document doesn\'t exist for $hiveNumber Hive Number';
     }
     var doc = data.docs.first;
+    var amount =
+        int.parse(doc['amountHoney']) + int.parse(honeyModel.amountOfHoney!);
     await doc.reference.update({
       "createdAt": honeyModel.createdAt,
-      "amountHoney": honeyModel.amountOfHoney,
+      "amountHoney": '$amount',
     });
     return 'Success';
   }
