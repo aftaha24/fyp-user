@@ -59,62 +59,68 @@ class _ManualTrackScreenState extends State<ManualTrackScreen> {
           hiveNumber: hiveNumberController.text,
           userID: FirebaseAuth.instance.currentUser!.uid);
 
-      await FireStoreService().addHoneyData(honeyModel);
+      var res = await FireStoreService()
+          .addHoneyData(honeyModel, hiveNumberController.text);
 
       clearTextFields();
-      showDialog(
-        context: context,
-        builder: (context) => Dialog(
-          backgroundColor: Colors.white,
-          child: SizedBox(
-            height: 400,
-            width: 200,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 60.h,
-                ),
-                SizedBox(
-                  width: 250.w,
-                  child: Text(
-                    "HONEY AMOUNTSUCCESSFULLY ADDED",
-                    style: headingStyle.copyWith(
-                      fontSize: 28.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    textAlign: TextAlign.center,
+      if (res == 'Success') {
+        showDialog(
+          context: context,
+          builder: (context) => Dialog(
+            backgroundColor: Colors.white,
+            child: SizedBox(
+              height: 400,
+              width: 200,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 60.h,
                   ),
-                ),
-                SizedBox(
-                  height: 60.h,
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Container(
-                    height: 40.h,
-                    width: 200.w,
-                    decoration: BoxDecoration(
-                      color: const Color(0xffABCDEC),
-                      borderRadius: BorderRadius.circular(20.r),
+                  SizedBox(
+                    width: 250.w,
+                    child: Text(
+                      "HONEY AMOUNTSUCCESSFULLY ADDED",
+                      style: headingStyle.copyWith(
+                        fontSize: 28.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    child: Center(
-                      child: Text(
-                        "Return",
-                        style: subHeadingStyle.copyWith(
-                          color: const Color(0xff0500FF),
-                          fontSize: 20.sp,
+                  ),
+                  SizedBox(
+                    height: 60.h,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      height: 40.h,
+                      width: 200.w,
+                      decoration: BoxDecoration(
+                        color: const Color(0xffABCDEC),
+                        borderRadius: BorderRadius.circular(20.r),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Return",
+                          style: subHeadingStyle.copyWith(
+                            color: const Color(0xff0500FF),
+                            fontSize: 20.sp,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      );
+        );
+      } else {
+        // ignore: use_build_context_synchronously
+        showSnackBar(context, text: res);
+      }
     }
     setState(() => isLoading = false);
   }

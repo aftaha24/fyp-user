@@ -19,8 +19,23 @@ class FireStoreService {
     await _firestore.collection('hives').doc().set(hiveModel.toMap());
   }
 
-  Future<void> addHoneyData(HoneyModel honeyModel) async {
-    await _firestore.collection('honnies').doc().set(honeyModel.toMap());
+  Future<String> addHoneyData(HoneyModel honeyModel, String hiveNumber) async {
+    var data = await _firestore
+        .collection('hives')
+        .where(
+          'hiveNumber',
+          isEqualTo: hiveNumber,
+        )
+        .get();
+    if (data.docs.isEmpty) {
+      return 'Document doesn\'t exist for $hiveNumber Hive Number';
+    }
+    var doc = data.docs.first;
+    await doc.reference.update({
+      "createdAt": honeyModel.createdAt,
+      "amountHoney": honeyModel.amountOfHoney,
+    });
+    return 'Success';
   }
 
   Stream<List<HiveModel>> fetchHives(String uuid) {
