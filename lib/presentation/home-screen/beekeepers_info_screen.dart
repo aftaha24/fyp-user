@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,10 @@ class _BeeKeepersInfoScreenState extends State<BeeKeepersInfoScreen> {
               return const Center(
                 child: CircularProgressIndicator(),
               );
+            }
+            if (snapshot.hasError) {
+              log(snapshot.error.toString());
+              log(snapshot.hasError.toString());
             }
             if (snapshot.hasData) {
               var beeKeepersList = snapshot.data;

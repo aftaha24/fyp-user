@@ -1,4 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -24,13 +25,32 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  List<HiveData> hiveData = [];
+  List<List<HiveData>> hiveData = [];
+
+  bool isLoading = false;
+
+  void setList() {
+    setState(() => isLoading = true);
+    for (int i = 0; i < widget.hives.length; i++) {
+      List<HiveData> tempList = [];
+
+      for (var element in widget.hives[i].history) {
+        // log(element.toString());
+        tempList.add(HiveData(element['date'], int.parse(element['amount'])));
+      }
+      hiveData.add(tempList);
+
+      // hiveData = List.from(widget.hives.map(
+      // (e) => HiveData('Hive ${e.hiveNumber}', int.parse(e.amountHoney!))));
+
+    }
+    setState(() => isLoading = false);
+  }
 
   @override
   void initState() {
-    hiveData = List.from(widget.hives.map(
-        (e) => HiveData('Hive ${e.hiveNumber}', int.parse(e.amountHoney!))));
     super.initState();
+    setList();
   }
 
   @override
@@ -44,16 +64,41 @@ class _UserScreenState extends State<UserScreen> {
             width: MediaQuery.of(context).size.width,
             color: Colors.black,
             child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: SfCartesianChart(
-                    primaryXAxis: CategoryAxis(),
-                    series: <ChartSeries<HiveData, String>>[
-                      ColumnSeries<HiveData, String>(
-                          // Bind data source
-                          dataSource: hiveData,
-                          xValueMapper: (HiveData sales, _) => sales.year,
-                          yValueMapper: (HiveData sales, _) => sales.amount)
-                    ])),
+              padding: const EdgeInsets.all(10.0),
+              child: isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : hiveData.isEmpty
+                      ? Center(
+                          child: Text(
+                            'No Data',
+                            style: headingStyle,
+                          ),
+                        )
+                      : ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: widget.hives.length,
+                          itemBuilder: (context, index) {
+                            return SfCartesianChart(
+                              title: ChartTitle(
+                                  text:
+                                      'Hive ${widget.hives[index].hiveNumber!}',
+                                  textStyle:
+                                      const TextStyle(color: Colors.white)),
+                              primaryXAxis: CategoryAxis(),
+                              series: <ChartSeries<HiveData, String>>[
+                                LineSeries<HiveData, String>(
+                                    // Bind data source
+
+                                    dataSource: hiveData[index],
+                                    xValueMapper: (HiveData sales, _) =>
+                                        sales.year,
+                                    yValueMapper: (HiveData sales, _) =>
+                                        sales.amount)
+                              ],
+                            );
+                          },
+                        ),
+            ),
           ),
           Container(
             height: 400.h,
