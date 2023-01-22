@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,12 +60,20 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
   void addHive() async {
     setState(() => isLoading = true);
     if (validate()) {
+      log(FirebaseAuth.instance.currentUser!.uid);
+      var userDoc = await FireStoreService()
+          .getUserProfile(FirebaseAuth.instance.currentUser!.uid);
+
+      log(userDoc.data().toString());
+
       HiveModel hiveModel = HiveModel(
         hiveNumber: hiveNumberController.text,
         createdAt: createdAtController.text,
         driveLink: gdriveLinkController.text,
         location: locationController.text,
         userID: FirebaseAuth.instance.currentUser!.uid,
+        userName: userDoc.data()!['name'],
+        amountHoney: '0',
       );
 
       await FireStoreService().addHiveData(hiveModel);

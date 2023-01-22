@@ -54,7 +54,10 @@ class TrackScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => const ManualTrackScreen(),
+                              builder: (_) => const ManualTrackScreen(
+                                createAt: '',
+                                hiveNumber: '',
+                              ),
                             ),
                           );
                         },

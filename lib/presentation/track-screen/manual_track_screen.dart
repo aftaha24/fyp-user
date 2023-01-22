@@ -11,7 +11,10 @@ import 'package:traceebee_users_app/utlis/text_styles.dart';
 import 'package:traceebee_users_app/utlis/utility.dart';
 
 class ManualTrackScreen extends StatefulWidget {
-  const ManualTrackScreen({super.key});
+  final String hiveNumber;
+  final String createAt;
+  const ManualTrackScreen(
+      {super.key, required this.hiveNumber, required this.createAt});
 
   @override
   State<ManualTrackScreen> createState() => _ManualTrackScreenState();
@@ -27,8 +30,12 @@ class _ManualTrackScreenState extends State<ManualTrackScreen> {
   @override
   void initState() {
     super.initState();
-    hiveNumberController = TextEditingController();
-    createdAtController = TextEditingController();
+    hiveNumberController = TextEditingController(
+      text: widget.hiveNumber,
+    );
+    createdAtController = TextEditingController(
+      text: widget.createAt,
+    );
     amountHoneyController = TextEditingController();
   }
 

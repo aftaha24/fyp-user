@@ -1,10 +1,22 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:traceebee_users_app/presentation/widgets/custom_scaffold.dart';
-import 'package:traceebee_users_app/utlis/text_styles.dart';
 
-class QRScanScreen extends StatelessWidget {
+import 'manual_track_screen.dart';
+
+class QRScanScreen extends StatefulWidget {
   const QRScanScreen({super.key});
+
+  @override
+  State<QRScanScreen> createState() => _QRScanScreenState();
+}
+
+class _QRScanScreenState extends State<QRScanScreen> {
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
   @override
   Widget build(BuildContext context) {
@@ -21,35 +33,30 @@ class QRScanScreen extends StatelessWidget {
               ),
             ),
           ),
-          Container(
+          SizedBox(
             height: 400.h,
             width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  'assets/images/qr.png',
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 20.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "TRACK HONEY",
-                      style: subHeadingStyle.copyWith(
-                        fontSize: 25.sp,
-                        color: Colors.white,
+            child: QRView(
+              key: qrKey,
+              onQRViewCreated: (controller) async {
+                await controller.resumeCamera();
+                controller.scannedDataStream.listen((scanData) async {
+                  log(scanData.code.toString());
+                  if (scanData.code != null) {
+                    await controller.pauseCamera();
+                    // ignore: use_build_context_synchronously
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ManualTrackScreen(
+                          createAt: jsonDecode(scanData.code!)['createdAt'],
+                          hiveNumber: jsonDecode(scanData.code!)['hiveNumber'],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    );
+                  }
+                });
+              },
             ),
           ),
         ],

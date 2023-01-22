@@ -12,11 +12,19 @@ class FireStoreService {
   }
 
   void createUser(UserModel userModel) async {
-    await _firestore.collection('users').doc().set(userModel.toMap());
+    await _firestore
+        .collection('users')
+        .doc(userModel.uid)
+        .set(userModel.toMap());
   }
 
   Future<void> addHiveData(HiveModel hiveModel) async {
     await _firestore.collection('hives').doc().set(hiveModel.toMap());
+  }
+
+  Future<DocumentSnapshot<Map<String, dynamic>>> getUserProfile(
+      String uuid) async {
+    return await _firestore.collection('users').doc(uuid).get();
   }
 
   Future<String> addHoneyData(HoneyModel honeyModel, String hiveNumber) async {
