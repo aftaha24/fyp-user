@@ -1,14 +1,38 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+
+import 'package:traceebee_users_app/models/hive_model.dart';
 import 'package:traceebee_users_app/presentation/home-screen/beekeepers_info_screen.dart';
 import 'package:traceebee_users_app/presentation/widgets/custom_scaffold.dart';
 import 'package:traceebee_users_app/repo/beekeepers-repo/beekeepers_entity.dart';
 import 'package:traceebee_users_app/utlis/colors.dart';
 import 'package:traceebee_users_app/utlis/text_styles.dart';
 
-class UserScreen extends StatelessWidget {
-  const UserScreen({super.key, required this.beeKeepersEnitity});
-  final BeeKeepersEnitity beeKeepersEnitity;
+class UserScreen extends StatefulWidget {
+  final String userName;
+  final List<HiveModel> hives;
+  const UserScreen({
+    Key? key,
+    required this.userName,
+    required this.hives,
+  }) : super(key: key);
+
+  @override
+  State<UserScreen> createState() => _UserScreenState();
+}
+
+class _UserScreenState extends State<UserScreen> {
+  List<HiveData> hiveData = [];
+
+  @override
+  void initState() {
+    hiveData = List.from(widget.hives.map(
+        (e) => HiveData('Hive ${e.hiveNumber}', int.parse(e.amountHoney!))));
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -20,11 +44,16 @@ class UserScreen extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             color: Colors.black,
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Image.asset(
-                beeKeepersEnitity.graphImage,
-              ),
-            ),
+                padding: const EdgeInsets.all(10.0),
+                child: SfCartesianChart(
+                    primaryXAxis: CategoryAxis(),
+                    series: <ChartSeries<HiveData, String>>[
+                      ColumnSeries<HiveData, String>(
+                          // Bind data source
+                          dataSource: hiveData,
+                          xValueMapper: (HiveData sales, _) => sales.year,
+                          yValueMapper: (HiveData sales, _) => sales.amount)
+                    ])),
           ),
           Container(
             height: 400.h,
@@ -39,7 +68,7 @@ class UserScreen extends StatelessWidget {
                     height: 30.h,
                   ),
                   Text(
-                    "USER ${beeKeepersEnitity.name}",
+                    "USER ${widget.userName}",
                     style: headingStyle,
                   ),
                   SizedBox(
@@ -185,4 +214,10 @@ class UserScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class HiveData {
+  HiveData(this.year, this.amount);
+  final String year;
+  final int amount;
 }
