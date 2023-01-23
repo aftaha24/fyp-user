@@ -127,7 +127,7 @@ class _BeeKeepersInfoScreenState extends State<BeeKeepersInfoScreen> {
                                       Image.network(
                                         hive.driveLink!,
                                         height: 130.h,
-                                        width: 170.w,
+                                        width: 150.w,
                                         fit: BoxFit.cover,
                                       ),
                                     ],

@@ -5,6 +5,7 @@ import 'package:traceebee_users_app/presentation/auth-screen/login_screen.dart';
 import 'package:traceebee_users_app/presentation/hive-screens/hive_analysis.dart';
 import 'package:traceebee_users_app/presentation/hive-screens/hive_screen.dart';
 import 'package:traceebee_users_app/presentation/home-screen/about_us_screen.dart';
+import 'package:traceebee_users_app/presentation/home-screen/beekeepers_info_screen.dart';
 import 'package:traceebee_users_app/presentation/home-screen/home_screen.dart';
 import 'package:traceebee_users_app/presentation/home-screen/stingless_bee_info_screen.dart';
 import 'package:traceebee_users_app/presentation/home-screen/track_screen.dart';
@@ -13,9 +14,16 @@ import 'package:traceebee_users_app/services/local_service.dart';
 import 'package:traceebee_users_app/utlis/colors.dart';
 import 'package:traceebee_users_app/utlis/text_styles.dart';
 
-class CustomScaffold extends StatelessWidget {
+class CustomScaffold extends StatefulWidget {
   const CustomScaffold({super.key, this.body});
   final Widget? body;
+
+  @override
+  State<CustomScaffold> createState() => _CustomScaffoldState();
+}
+
+class _CustomScaffoldState extends State<CustomScaffold> {
+  // GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Consumer<HomeProvider>(
@@ -95,7 +103,7 @@ class CustomScaffold extends StatelessWidget {
                         ),
                       ),
                     ),
-                    body!,
+                    widget.body!,
                   ],
                 ),
               ),
@@ -244,18 +252,29 @@ class CustomScaffold extends StatelessWidget {
                                         SizedBox(
                                           height: 5.h,
                                         ),
-                                        Container(
-                                          height: 30.h,
-                                          width: 130.w,
-                                          decoration: BoxDecoration(
-                                            color: const Color(0xffD9D9D9),
-                                            borderRadius:
-                                                BorderRadius.circular(15.r),
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              "MY HIVES",
-                                              style: subHeadingStyle,
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) =>
+                                                    const BeeKeepersInfoScreen(),
+                                              ),
+                                            );
+                                          },
+                                          child: Container(
+                                            height: 30.h,
+                                            width: 130.w,
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xffD9D9D9),
+                                              borderRadius:
+                                                  BorderRadius.circular(15.r),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "MY HIVES",
+                                                style: subHeadingStyle,
+                                              ),
                                             ),
                                           ),
                                         ),
