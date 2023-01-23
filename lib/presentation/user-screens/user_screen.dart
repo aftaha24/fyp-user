@@ -1,14 +1,58 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+
+import 'package:traceebee_users_app/models/hive_model.dart';
 import 'package:traceebee_users_app/presentation/home-screen/beekeepers_info_screen.dart';
 import 'package:traceebee_users_app/presentation/widgets/custom_scaffold.dart';
 import 'package:traceebee_users_app/repo/beekeepers-repo/beekeepers_entity.dart';
 import 'package:traceebee_users_app/utlis/colors.dart';
 import 'package:traceebee_users_app/utlis/text_styles.dart';
 
-class UserScreen extends StatelessWidget {
-  const UserScreen({super.key, required this.beeKeepersEnitity});
-  final BeeKeepersEnitity beeKeepersEnitity;
+class UserScreen extends StatefulWidget {
+  final String userName;
+  final List<HiveModel> hives;
+  const UserScreen({
+    Key? key,
+    required this.userName,
+    required this.hives,
+  }) : super(key: key);
+
+  @override
+  State<UserScreen> createState() => _UserScreenState();
+}
+
+class _UserScreenState extends State<UserScreen> {
+  List<List<HiveData>> hiveData = [];
+
+  bool isLoading = false;
+
+  void setList() {
+    setState(() => isLoading = true);
+    for (int i = 0; i < widget.hives.length; i++) {
+      List<HiveData> tempList = [];
+
+      for (var element in widget.hives[i].history) {
+        // log(element.toString());
+        tempList.add(HiveData(element['date'], int.parse(element['amount'])));
+      }
+      hiveData.add(tempList);
+
+      // hiveData = List.from(widget.hives.map(
+      // (e) => HiveData('Hive ${e.hiveNumber}', int.parse(e.amountHoney!))));
+
+    }
+    setState(() => isLoading = false);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -21,9 +65,39 @@ class UserScreen extends StatelessWidget {
             color: Colors.black,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Image.asset(
-                beeKeepersEnitity.graphImage,
-              ),
+              child: isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : hiveData.isEmpty
+                      ? Center(
+                          child: Text(
+                            'No Data',
+                            style: headingStyle,
+                          ),
+                        )
+                      : ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: widget.hives.length,
+                          itemBuilder: (context, index) {
+                            return SfCartesianChart(
+                              title: ChartTitle(
+                                  text:
+                                      'Hive ${widget.hives[index].hiveNumber!}',
+                                  textStyle:
+                                      const TextStyle(color: Colors.white)),
+                              primaryXAxis: CategoryAxis(),
+                              series: <ChartSeries<HiveData, String>>[
+                                LineSeries<HiveData, String>(
+                                    // Bind data source
+
+                                    dataSource: hiveData[index],
+                                    xValueMapper: (HiveData sales, _) =>
+                                        sales.year,
+                                    yValueMapper: (HiveData sales, _) =>
+                                        sales.amount)
+                              ],
+                            );
+                          },
+                        ),
             ),
           ),
           Container(
@@ -39,7 +113,7 @@ class UserScreen extends StatelessWidget {
                     height: 30.h,
                   ),
                   Text(
-                    "USER ${beeKeepersEnitity.name}",
+                    "USER ${widget.userName}",
                     style: headingStyle,
                   ),
                   SizedBox(
@@ -185,4 +259,10 @@ class UserScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class HiveData {
+  HiveData(this.year, this.amount);
+  final String year;
+  final int amount;
 }

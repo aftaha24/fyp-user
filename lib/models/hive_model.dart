@@ -6,6 +6,7 @@ class HiveModel {
   String? userID;
   String? userName;
   String? amountHoney;
+  List<Map<String, dynamic>> history;
 
   HiveModel({
     this.hiveNumber,
@@ -15,6 +16,7 @@ class HiveModel {
     this.userID,
     this.amountHoney,
     this.userName,
+    this.history = const [],
   });
 
   Map<String, dynamic> toMap() {
@@ -26,6 +28,7 @@ class HiveModel {
       'userID': userID,
       'amountHoney': amountHoney,
       'userName': userName,
+      'history': history,
     };
   }
 
@@ -40,6 +43,7 @@ class HiveModel {
       userName: map['userName'] != null ? map['userName'] as String : null,
       amountHoney:
           map['amountHoney'] != null ? map['amountHoney'] as String : null,
+      history: List.from((map['history'] as List).map((e) => e)),
     );
   }
 }
