@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 import 'package:traceebee_users_app/models/hive_model.dart';
 import 'package:traceebee_users_app/presentation/home-screen/beekeepers_info_screen.dart';
@@ -26,8 +27,10 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
   late TextEditingController locationController;
   late TextEditingController createdAtController;
   late TextEditingController gdriveLinkController;
-
+  String location = 'Null, Press Button';
+  String address = 'search';
   bool isLoading = false;
+  Position? _currentPosition;
 
   @override
   void initState() {
@@ -55,6 +58,47 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
     } else {
       return true;
     }
+  }
+
+  Future<bool> _handleLocationPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'Location services are disabled. Please enable the services')));
+      return false;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Location permissions are denied')));
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'Location permissions are permanently denied, we cannot request permissions.')));
+      return false;
+    }
+    return true;
+  }
+
+  Future<void> _getCurrentPosition() async {
+    final hasPermission = await _handleLocationPermission();
+
+    if (!hasPermission) return;
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) {
+      setState(() => _currentPosition = position);
+    }).catchError((e) {
+      debugPrint(e);
+    });
   }
 
   void addHive() async {
@@ -240,11 +284,25 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
                   hintText: 'Google Drive URL *',
                   controller: gdriveLinkController,
                 ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                Text('LAT: ${_currentPosition?.latitude ?? ""}'),
+                Text('LNG: ${_currentPosition?.longitude ?? ""}'),
+                ElevatedButton(
+                  onPressed: _getCurrentPosition,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
+                  child: const Text(
+                    "Get Current Location",
+                  ),
+                )
               ],
             ),
           ),
           SizedBox(
-            height: 50.h,
+            height: 10.h,
           ),
           InkWell(
             onTap: () => addHive(),
