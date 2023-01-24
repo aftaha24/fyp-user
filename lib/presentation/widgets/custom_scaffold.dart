@@ -156,6 +156,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                               ),
                               InkWell(
                                 onTap: () {
+                                  homeState.setMenuStatetoClosed();
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -173,6 +174,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                               ),
                               InkWell(
                                 onTap: () {
+                                  homeState.setMenuStatetoClosed();
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -225,6 +227,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                                       children: [
                                         InkWell(
                                           onTap: () {
+                                            homeState.setMenuStatetoClosed();
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
@@ -254,6 +257,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                                         ),
                                         InkWell(
                                           onTap: () {
+                                            homeState.setMenuStatetoClosed();
                                             Navigator.push(
                                               context,
                                               MaterialPageRoute(
@@ -286,6 +290,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                               ),
                               InkWell(
                                 onTap: () {
+                                  homeState.setMenuStatetoClosed();
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -303,6 +308,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                               ),
                               InkWell(
                                 onTap: () {
+                                  homeState.setMenuStatetoClosed();
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -321,6 +327,7 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                               ),
                               InkWell(
                                 onTap: () {
+                                  homeState.setMenuStatetoClosed();
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(

@@ -18,6 +18,11 @@ class HomeProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+  
+  setMenuStatetoClosed() {
+    menuState = MenuState.closed;
+    notifyListeners();
+  }
 
   setHivesMenuState() {
     if (hivesMenuState == HivesMenuState.closed) {
