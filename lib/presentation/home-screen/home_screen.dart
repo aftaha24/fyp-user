@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:traceebee_users_app/presentation/hive-screens/hive_screen.dart';
+import 'package:traceebee_users_app/presentation/home-screen/about_us_screen.dart';
+import 'package:traceebee_users_app/presentation/home-screen/stingless_bee_info_screen.dart';
+import 'package:traceebee_users_app/presentation/home-screen/track_screen.dart';
 import 'package:traceebee_users_app/presentation/widgets/custom_info_container.dart';
 import 'package:traceebee_users_app/presentation/widgets/custom_scaffold.dart';
 import 'package:traceebee_users_app/utlis/text_styles.dart';
@@ -54,18 +58,38 @@ class HomeScreen extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              CustomInfoContainer(
-                image: "assets/images/home_image.png",
-                title: "STINGLESS BEE HONEY",
-                desc: "Information of honey from stingless Bess.",
-                color: Color(0xff595791),
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const StingLessBeeInfoScreen(),
+                    ),
+                  );
+                },
+                child: const CustomInfoContainer(
+                  image: "assets/images/home_image.png",
+                  title: "STINGLESS BEE HONEY",
+                  desc: "Information of honey from stingless Bess.",
+                  color: Color(0xff595791),
+                ),
               ),
-              CustomInfoContainer(
-                image: "assets/images/info.png",
-                title: "ABOUT US",
-                desc: "Information about TraceBee Webapp",
-                color: Color(0xff68CE58),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const AboutUsScreen(),
+                    ),
+                  );
+                },
+                child: const CustomInfoContainer(
+                  image: "assets/images/info.png",
+                  title: "ABOUT US",
+                  desc: "Information about TraceBee Webapp",
+                  color: Color(0xff68CE58),
+                ),
               ),
             ],
           ),
@@ -74,19 +98,39 @@ class HomeScreen extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              CustomInfoContainer(
-                image: "assets/images/home_image.png",
-                title: "TRACK",
-                desc:
-                    "Tracking the amount of Honey collected from various Hives.",
-                color: Color(0xffA58E3C),
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const TrackScreen(),
+                    ),
+                  );
+                },
+                child: const CustomInfoContainer(
+                  image: "assets/images/home_image.png",
+                  title: "TRACK",
+                  desc:
+                      "Tracking the amount of Honey collected from various Hives.",
+                  color: Color(0xffA58E3C),
+                ),
               ),
-              CustomInfoContainer(
-                image: "assets/images/hive.png",
-                title: "HIVES",
-                desc: "Information of all Hives",
-                color: Color(0xff6CC5CB),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const HiveScreen(),
+                    ),
+                  );
+                },
+                child: const CustomInfoContainer(
+                  image: "assets/images/hive.png",
+                  title: "HIVES",
+                  desc: "Information of all Hives",
+                  color: Color(0xff6CC5CB),
+                ),
               ),
             ],
           ),

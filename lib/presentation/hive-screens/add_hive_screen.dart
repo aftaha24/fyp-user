@@ -128,7 +128,7 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
           backgroundColor: Colors.white,
           child: SizedBox(
             height: 400,
-            width: 200,
+            width: 250,
             child: Column(
               children: [
                 SizedBox(
@@ -161,7 +161,7 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
                 ),
                 const Spacer(),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     InkWell(
                       onTap: () {
@@ -175,7 +175,7 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
                       },
                       child: Container(
                         height: 35.h,
-                        width: 130.w,
+                        width: 110.w,
                         color: Colors.black,
                         child: Center(
                           child: Text(
@@ -194,7 +194,7 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
                       },
                       child: Container(
                         height: 35.h,
-                        width: 130.w,
+                        width: 110.w,
                         color: Colors.black,
                         child: Center(
                           child: Text(
