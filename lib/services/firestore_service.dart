@@ -62,12 +62,26 @@ class FireStoreService {
         .snapshots()
         .map((event) {
       List<HiveModel> hives = [];
-
-      event.docs.forEach((element) {
+      for (var element in event.docs) {
         hives.add(HiveModel.fromMap(element.data()));
-      });
+      }
 
       return hives;
     });
+  }
+
+  Future<List<HiveModel>> fetchHivesFuture(String uuid) async {
+    List<HiveModel> hives = [];
+
+    var hiveRef = await _firestore
+        .collection('hives')
+        .where('userID', isEqualTo: uuid)
+        .get();
+
+    for (var element in hiveRef.docs) {
+      hives.add(HiveModel.fromMap(element.data()));
+    }
+
+    return hives;
   }
 }

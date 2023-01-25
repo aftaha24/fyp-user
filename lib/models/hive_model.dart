@@ -43,7 +43,9 @@ class HiveModel {
       userName: map['userName'] != null ? map['userName'] as String : null,
       amountHoney:
           map['amountHoney'] != null ? map['amountHoney'] as String : null,
-      history: List.from((map['history'] as List).map((e) => e)),
+      history: map['history'] == null
+          ? <Map<String, dynamic>>[]
+          : List.from((map['history'] as List).map((e) => e)),
     );
   }
 }
