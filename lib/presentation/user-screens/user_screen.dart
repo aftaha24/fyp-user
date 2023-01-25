@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -7,7 +5,6 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:traceebee_users_app/models/hive_model.dart';
 import 'package:traceebee_users_app/presentation/home-screen/beekeepers_info_screen.dart';
 import 'package:traceebee_users_app/presentation/widgets/custom_scaffold.dart';
-import 'package:traceebee_users_app/repo/beekeepers-repo/beekeepers_entity.dart';
 import 'package:traceebee_users_app/utlis/colors.dart';
 import 'package:traceebee_users_app/utlis/text_styles.dart';
 

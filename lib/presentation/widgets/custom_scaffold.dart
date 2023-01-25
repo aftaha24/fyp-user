@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ import 'package:traceebee_users_app/presentation/home-screen/home_screen.dart';
 import 'package:traceebee_users_app/presentation/home-screen/stingless_bee_info_screen.dart';
 import 'package:traceebee_users_app/presentation/home-screen/track_screen.dart';
 import 'package:traceebee_users_app/providers/home-provider/home_provider.dart';
+import 'package:traceebee_users_app/services/firestore_service.dart';
 import 'package:traceebee_users_app/services/local_service.dart';
 import 'package:traceebee_users_app/utlis/colors.dart';
 import 'package:traceebee_users_app/utlis/text_styles.dart';
@@ -307,13 +309,19 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                                 height: 20.h,
                               ),
                               InkWell(
-                                onTap: () {
+                                onTap: () async {
                                   homeState.setMenuStatetoClosed();
+                                  var hives = await FireStoreService()
+                                      .fetchHivesFuture(FirebaseAuth
+                                          .instance.currentUser!.uid);
+                                  // ignore: use_build_context_synchronously
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) =>
-                                          const HiveAnalysisScreen(),
+                                      builder: (_) => HiveAnalysisScreen(
+                                        hives: hives,
+                                        userName: hives.first.userName!,
+                                      ),
                                     ),
                                   );
                                 },
