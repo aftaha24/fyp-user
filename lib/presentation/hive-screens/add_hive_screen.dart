@@ -258,8 +258,19 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
                 SizedBox(
                   height: 30.h,
                 ),
+                Text('LAT: ${_currentPosition?.latitude ?? ""}'),
+                Text('LNG: ${_currentPosition?.longitude ?? ""}'),
+                ElevatedButton(
+                  onPressed: _getCurrentPosition,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                  ),
+                  child: const Text(
+                    "Get Current Location",
+                  ),
+                ),
                 CustomTextfield(
-                  hintText: 'Creation Date  *',
+                  hintText: 'Creation Date*',
                   controller: createdAtController,
                   onTap: () async {
                     var time = await showDatePicker(
@@ -287,17 +298,6 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
                 SizedBox(
                   height: 10.h,
                 ),
-                Text('LAT: ${_currentPosition?.latitude ?? ""}'),
-                Text('LNG: ${_currentPosition?.longitude ?? ""}'),
-                ElevatedButton(
-                  onPressed: _getCurrentPosition,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.green,
-                  ),
-                  child: const Text(
-                    "Get Current Location",
-                  ),
-                )
               ],
             ),
           ),

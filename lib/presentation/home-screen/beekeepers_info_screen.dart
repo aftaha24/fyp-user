@@ -49,13 +49,15 @@ class _BeeKeepersInfoScreenState extends State<BeeKeepersInfoScreen> {
                           padding: EdgeInsets.symmetric(horizontal: 1.w),
                           child: InkWell(
                             onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return UserScreen(
-                                  hives: beeKeepersList,
-                                  userName: hive.userName!,
-                                );
-                              }));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return UserScreen(
+                                    hives: beeKeepersList,
+                                    userName: hive.userName!,
+                                  );
+                                }),
+                              );
                             },
                             child: Container(
                               height: 170.h,
