@@ -81,21 +81,40 @@ class _BeeKeepersInfoScreenState extends State<BeeKeepersInfoScreen> {
                                           SizedBox(
                                             height: 10.h,
                                           ),
+                                          Text(
+                                            "Hive Number: ${hive.hiveNumber}",
+                                            style: subHeadingStyle,
+                                          ),
+                                          // SizedBox(
+                                          //   width: 180,
+                                          //   child: Text(
+                                          //     "USER : ${hive.userName}",
+                                          //     style: subHeadingStyle,
+                                          //     overflow: TextOverflow.clip,
+                                          //   ),
+                                          // ),
                                           SizedBox(
-                                            width: 180,
-                                            child: Text(
-                                              "USER : ${hive.userName}",
-                                              style: subHeadingStyle,
-                                              overflow: TextOverflow.clip,
-                                            ),
+                                            height: 10.h,
+                                          ),
+                                          Text(
+                                            "Location: ${hive.location}",
+                                            style: subHeadingStyle,
                                           ),
                                           SizedBox(
                                             height: 10.h,
                                           ),
                                           Text(
-                                            "No. of Hives: ${hive.hiveNumber}",
+                                            "lat: ${hive.latitude}",
                                             style: subHeadingStyle,
                                           ),
+                                          SizedBox(
+                                            height: 10.h,
+                                          ),
+                                          Text(
+                                            "lon: ${hive.longitude}",
+                                            style: subHeadingStyle,
+                                          ),
+
                                           SizedBox(
                                             height: 10.h,
                                           ),
@@ -106,9 +125,20 @@ class _BeeKeepersInfoScreenState extends State<BeeKeepersInfoScreen> {
                                           SizedBox(
                                             height: 10.h,
                                           ),
-                                          Text(
-                                            hive.amountHoney ?? '0',
-                                            style: subHeadingStyle,
+                                          Row(
+                                            children: [
+                                              Text(
+                                                hive.amountHoney ?? '0',
+                                                style: subHeadingStyle,
+                                              ),
+                                              const SizedBox(
+                                                width: 2,
+                                              ),
+                                              Text(
+                                                '(ml)',
+                                                style: subHeadingStyle,
+                                              ),
+                                            ],
                                           ),
                                           SizedBox(
                                             height: 10.h,

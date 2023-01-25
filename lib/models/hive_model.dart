@@ -6,6 +6,8 @@ class HiveModel {
   String? userID;
   String? userName;
   String? amountHoney;
+  String? latitude;
+  String? longitude;
   List<Map<String, dynamic>> history;
 
   HiveModel({
@@ -16,6 +18,8 @@ class HiveModel {
     this.userID,
     this.amountHoney,
     this.userName,
+    this.latitude,
+    this.longitude,
     this.history = const [],
   });
 
@@ -29,6 +33,8 @@ class HiveModel {
       'amountHoney': amountHoney,
       'userName': userName,
       'history': history,
+      'latitude': latitude,
+      'longitude': longitude,
     };
   }
 
@@ -37,6 +43,8 @@ class HiveModel {
       hiveNumber:
           map['hiveNumber'] != null ? map['hiveNumber'] as String : null,
       location: map['location'] != null ? map['location'] as String : null,
+      latitude: map['latitude'] != null ? map['latitude'] as String : null,
+      longitude: map['longitude'] != null ? map['longitude'] as String : null,
       createdAt: map['createdAt'] != null ? map['createdAt'] as String : null,
       driveLink: map['driveLink'] != null ? map['driveLink'] as String : null,
       userID: map['userID'] != null ? map['userID'] as String : null,

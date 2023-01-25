@@ -115,6 +115,8 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
         createdAt: createdAtController.text,
         driveLink: gdriveLinkController.text,
         location: locationController.text,
+        latitude: _currentPosition!.latitude.toString(),
+        longitude: _currentPosition!.longitude.toString(),
         userID: FirebaseAuth.instance.currentUser!.uid,
         userName: userDoc.data()!['name'],
         amountHoney: '0',
@@ -221,6 +223,7 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
   Widget build(BuildContext context) {
     return CustomScaffold(
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
             height: 60.h,
