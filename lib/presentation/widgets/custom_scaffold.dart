@@ -314,13 +314,13 @@ class _CustomScaffoldState extends State<CustomScaffold> {
                                   var hives = await FireStoreService()
                                       .fetchHivesFuture(FirebaseAuth
                                           .instance.currentUser!.uid);
+
                                   // ignore: use_build_context_synchronously
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (_) => HiveAnalysisScreen(
                                         hives: hives,
-                                        userName: hives.first.userName!,
                                       ),
                                     ),
                                   );

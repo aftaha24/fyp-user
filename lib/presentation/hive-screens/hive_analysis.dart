@@ -9,11 +9,9 @@ import 'package:traceebee_users_app/utlis/colors.dart';
 import 'package:traceebee_users_app/utlis/text_styles.dart';
 
 class HiveAnalysisScreen extends StatefulWidget {
-  final String userName;
   final List<HiveModel> hives;
   const HiveAnalysisScreen({
     Key? key,
-    required this.userName,
     required this.hives,
   }) : super(key: key);
 
@@ -61,7 +59,7 @@ class _HiveAnalysisScreenState extends State<HiveAnalysisScreen> {
             color: const Color(0xffBFB0E9),
             child: isLoading
                 ? const Center(child: CircularProgressIndicator())
-                : hiveData.isEmpty
+                : hiveData.isEmpty || widget.hives.isEmpty
                     ? Center(
                         child: Text(
                           'No Data',
