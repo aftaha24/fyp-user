@@ -5,10 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:traceebee_users_app/utlis/text_styles.dart';
 
 class CustomTextfield extends StatelessWidget {
-  const CustomTextfield({
+  CustomTextfield({
     Key? key,
     this.hintText,
     this.controller,
+    this.isObscure = false,
     this.onTap,
     this.keyboardType = TextInputType.name,
     this.readOnly = false,
@@ -16,6 +17,7 @@ class CustomTextfield extends StatelessWidget {
   final String? hintText;
   final TextEditingController? controller;
   final bool readOnly;
+  bool isObscure;
   final Function()? onTap;
   final TextInputType? keyboardType;
   @override
@@ -24,6 +26,7 @@ class CustomTextfield extends StatelessWidget {
       height: 40.h,
       width: 300.w,
       child: TextFormField(
+        obscureText: isObscure,
         keyboardType: keyboardType,
         onTap: onTap,
         readOnly: readOnly,
