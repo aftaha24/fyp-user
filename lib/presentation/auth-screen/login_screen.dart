@@ -30,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   bool validate() {
-    if (emailController.text.isEmpty && passwordController.text.isEmpty) {
+    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
       showSnackBar(context, text: 'Please fill all fields');
       return false;
     } else {

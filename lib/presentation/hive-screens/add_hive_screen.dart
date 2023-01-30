@@ -49,10 +49,10 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
   }
 
   bool validate() {
-    if (hiveNumberController.text.isEmpty &&
-        locationController.text.isEmpty &&
-        createdAtController.text.isEmpty &&
-        gdriveLinkController.text.isEmpty &&
+    if (hiveNumberController.text.isEmpty ||
+        locationController.text.isEmpty ||
+        createdAtController.text.isEmpty ||
+        gdriveLinkController.text.isEmpty ||
         _currentPosition == null) {
       showSnackBar(context, text: 'Please fill all fields');
       return false;

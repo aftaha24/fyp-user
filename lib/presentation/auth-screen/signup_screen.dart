@@ -32,9 +32,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   bool validate() {
-    if (nameController.text.isEmpty &&
-        emailController.text.isEmpty &&
-        passwordController.text.isEmpty &&
+    if (nameController.text.isEmpty ||
+        emailController.text.isEmpty ||
+        passwordController.text.isEmpty ||
         cnfPasswordController.text.isEmpty) {
       showSnackBar(context, text: 'Please fill all fields');
 

@@ -40,8 +40,8 @@ class _ManualTrackScreenState extends State<ManualTrackScreen> {
   }
 
   bool validate() {
-    if (hiveNumberController.text.isEmpty &&
-        amountHoneyController.text.isEmpty &&
+    if (hiveNumberController.text.isEmpty ||
+        amountHoneyController.text.isEmpty ||
         createdAtController.text.isEmpty) {
       showSnackBar(context, text: 'Please fill all fields');
       return false;
@@ -69,11 +69,11 @@ class _ManualTrackScreenState extends State<ManualTrackScreen> {
       var res = await FireStoreService()
           .addHoneyData(honeyModel, hiveNumberController.text);
 
-      setState(() {
-        isLoading = false;
-      });
       clearTextFields();
       if (res == 'Success') {
+        setState(() {
+          isLoading = false;
+        });
         showDialog(
           context: context,
           builder: (context) => Dialog(
@@ -128,11 +128,14 @@ class _ManualTrackScreenState extends State<ManualTrackScreen> {
           ),
         );
       } else {
+        setState(() {
+          isLoading = false;
+        });
         // ignore: use_build_context_synchronously
         showSnackBar(context, text: res);
       }
     }
-    // setState(() => isLoading = false);
+    setState(() => isLoading = false);
   }
 
   @override
