@@ -69,6 +69,9 @@ class _ManualTrackScreenState extends State<ManualTrackScreen> {
       var res = await FireStoreService()
           .addHoneyData(honeyModel, hiveNumberController.text);
 
+      setState(() {
+        isLoading = false;
+      });
       clearTextFields();
       if (res == 'Success') {
         showDialog(
@@ -129,7 +132,7 @@ class _ManualTrackScreenState extends State<ManualTrackScreen> {
         showSnackBar(context, text: res);
       }
     }
-    setState(() => isLoading = false);
+    // setState(() => isLoading = false);
   }
 
   @override

@@ -115,7 +115,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       } else {
         // ignore: use_build_context_synchronously
         showSnackBar(context, text: res);
-        showSnackBar(context, text: 'Something went wrong');
+        // showSnackBar(context, text: 'Something went wrong');
       }
     }
   }
@@ -179,6 +179,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   CustomTextfield(
                     hintText: 'Enter your password',
                     controller: passwordController,
+                    isObscure: true,
                   ),
                   SizedBox(
                     height: 30.h,
@@ -186,6 +187,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   CustomTextfield(
                     hintText: 'Confirm your password',
                     controller: cnfPasswordController,
+                    isObscure: true,
                   ),
                 ],
               ),

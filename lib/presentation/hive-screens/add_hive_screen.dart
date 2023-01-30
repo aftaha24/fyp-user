@@ -52,7 +52,8 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
     if (hiveNumberController.text.isEmpty &&
         locationController.text.isEmpty &&
         createdAtController.text.isEmpty &&
-        gdriveLinkController.text.isEmpty) {
+        gdriveLinkController.text.isEmpty &&
+        _currentPosition == null) {
       showSnackBar(context, text: 'Please fill all fields');
       return false;
     } else {
@@ -66,24 +67,28 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-              'Location services are disabled. Please enable the services')));
+      // ignore: use_build_context_synchronously
+      showSnackBar(context,
+          text: 'Location services are disabled. Please enable the services');
+
       return false;
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Location permissions are denied')));
+        // ignore: use_build_context_synchronously
+        showSnackBar(context, text: 'Location permissions are denied');
+
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-              'Location permissions are permanently denied, we cannot request permissions.')));
+      // ignore: use_build_context_synchronously
+      showSnackBar(context,
+          text:
+              'Location permissions are permanently denied, we cannot request permissions.');
+
       return false;
     }
     return true;
@@ -105,118 +110,125 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
     setState(() => isLoading = true);
     if (validate()) {
       log(FirebaseAuth.instance.currentUser!.uid);
-      var userDoc = await FireStoreService()
-          .getUserProfile(FirebaseAuth.instance.currentUser!.uid);
 
-      log(userDoc.data().toString());
+      if (await FireStoreService().hiveExist(hiveNumberController.text)) {
+        setState(() => isLoading = false);
+        showSnackBar(context, text: 'Hive number already exist');
+        return;
+      } else {
+        var userDoc = await FireStoreService()
+            .getUserProfile(FirebaseAuth.instance.currentUser!.uid);
 
-      HiveModel hiveModel = HiveModel(
-        hiveNumber: hiveNumberController.text,
-        createdAt: createdAtController.text,
-        driveLink: gdriveLinkController.text,
-        location: locationController.text,
-        latitude: _currentPosition!.latitude.toString(),
-        longitude: _currentPosition!.longitude.toString(),
-        userID: FirebaseAuth.instance.currentUser!.uid,
-        userName: userDoc.data()!['name'],
-        amountHoney: '0',
-      );
+        log(userDoc.data().toString());
 
-      await FireStoreService().addHiveData(hiveModel);
-      setState(() => isLoading = false);
-      await showDialog(
-        context: context,
-        builder: (context) => Dialog(
-          backgroundColor: Colors.white,
-          child: SizedBox(
-            height: 400,
-            width: 250,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 60.h,
-                ),
-                SizedBox(
-                  width: 210.w,
-                  child: Text(
-                    "NEW HIVE HAS BEEN CREATED",
-                    style: headingStyle.copyWith(
-                      fontSize: 28.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    textAlign: TextAlign.center,
+        HiveModel hiveModel = HiveModel(
+          hiveNumber: hiveNumberController.text,
+          createdAt: createdAtController.text,
+          driveLink: gdriveLinkController.text,
+          location: locationController.text,
+          latitude: _currentPosition!.latitude.toString(),
+          longitude: _currentPosition!.longitude.toString(),
+          userID: FirebaseAuth.instance.currentUser!.uid,
+          userName: userDoc.data()!['name'],
+          amountHoney: '0',
+        );
+
+        await FireStoreService().addHiveData(hiveModel);
+        setState(() => isLoading = false);
+        await showDialog(
+          context: context,
+          builder: (context) => Dialog(
+            backgroundColor: Colors.white,
+            child: SizedBox(
+              height: 400,
+              width: 250,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 60.h,
                   ),
-                ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                SizedBox(
-                  width: 210.w,
-                  child: Text(
-                    "THANK YOU!",
-                    style: headingStyle.copyWith(
+                  SizedBox(
+                    width: 210.w,
+                    child: Text(
+                      "NEW HIVE HAS BEEN CREATED",
+                      style: headingStyle.copyWith(
                         fontSize: 28.sp,
                         fontWeight: FontWeight.w400,
-                        color: const Color(0xff0500FF)),
-                    textAlign: TextAlign.center,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                ),
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        clearTextFields();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const BeeKeepersInfoScreen(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        height: 35.h,
-                        width: 110.w,
-                        color: Colors.black,
-                        child: Center(
-                          child: Text(
-                            "My Hives",
-                            style: subHeadingStyle.copyWith(
-                              color: Colors.white,
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  SizedBox(
+                    width: 210.w,
+                    child: Text(
+                      "THANK YOU!",
+                      style: headingStyle.copyWith(
+                          fontSize: 28.sp,
+                          fontWeight: FontWeight.w400,
+                          color: const Color(0xff0500FF)),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          clearTextFields();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const BeeKeepersInfoScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 35.h,
+                          width: 110.w,
+                          color: Colors.black,
+                          child: Center(
+                            child: Text(
+                              "My Hives",
+                              style: subHeadingStyle.copyWith(
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.pop(context);
-                        clearTextFields();
-                      },
-                      child: Container(
-                        height: 35.h,
-                        width: 110.w,
-                        color: Colors.black,
-                        child: Center(
-                          child: Text(
-                            "Return",
-                            style: subHeadingStyle.copyWith(
-                              color: Colors.white,
+                      InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                          clearTextFields();
+                        },
+                        child: Container(
+                          height: 35.h,
+                          width: 110.w,
+                          color: Colors.black,
+                          child: Center(
+                            child: Text(
+                              "Return",
+                              style: subHeadingStyle.copyWith(
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      );
+        );
+      }
+      setState(() => isLoading = false);
     }
-    setState(() => isLoading = false);
   }
 
   @override
@@ -310,6 +322,7 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
           InkWell(
             onTap: () => addHive(),
             child: Container(
+              margin: const EdgeInsets.only(bottom: 10),
               height: 40.h,
               width: 320.w,
               color: darkgreenColor,

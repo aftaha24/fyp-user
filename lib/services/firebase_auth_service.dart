@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 import 'package:traceebee_users_app/models/user_model.dart';
 import 'package:traceebee_users_app/services/firestore_service.dart';
 import 'package:traceebee_users_app/services/local_service.dart';
@@ -57,12 +58,18 @@ class FirebaseAuthService {
         if (await _fireStoreService.checkUser(userCred.user!.uid)) {
           result = 'user already exists';
         } else {
-          _fireStoreService.createUser(UserModel(
-            email: email,
-            name: name,
-            uid: userCred.user!.uid,
-            password: password,
-          ));
+          _fireStoreService.createUser(
+            UserModel(
+                email: email,
+                name: name,
+                uid: userCred.user!.uid,
+                password: password,
+                createdAt: DateFormat('dd/MM/yyyy').format(DateTime.now()),
+                hiveCount: '0',
+                totalAmountOfHoney: '0',
+                profileImage:
+                    'https://firebasestorage.googleapis.com/v0/b/tracebee-128c8.appspot.com/o/WhatsApp%20Image%202023-01-30%20at%2010.39.25%20PM.jpeg?alt=media&token=38d0dc08-326a-4783-9bc6-e2ed44ae418d'),
+          );
           result = 'success';
         }
       }
