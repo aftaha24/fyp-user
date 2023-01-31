@@ -69,7 +69,7 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
                 child: const CustomInfoContainer(
-                  image: "assets/images/home_image.png",
+                  image: "assets/images/asset3.png",
                   title: "STINGLESS BEE HONEY",
                   desc: "Information of honey from stingless Bess.",
                   color: Color(0xff595791),
@@ -109,7 +109,7 @@ class HomeScreen extends StatelessWidget {
                   );
                 },
                 child: const CustomInfoContainer(
-                  image: "assets/images/home_image.png",
+                  image: "assets/images/asset1.png",
                   title: "TRACK",
                   desc:
                       "Tracking the amount of Honey collected from various Hives.",
