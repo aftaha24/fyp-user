@@ -38,7 +38,6 @@ class FireStoreService {
 
     await userRef.update({
       'hiveCount': '$hiveCount',
-      'profileImage': hiveModel.driveLink,
     });
   }
 

@@ -107,8 +107,8 @@ class _AddHiveScreenState extends State<AddHiveScreen> {
   }
 
   void addHive() async {
-    setState(() => isLoading = true);
     if (validate()) {
+      setState(() => isLoading = true);
       log(FirebaseAuth.instance.currentUser!.uid);
 
       if (await FireStoreService().hiveExist(hiveNumberController.text)) {
