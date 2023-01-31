@@ -22,7 +22,14 @@ class FireStoreService {
   Future<bool> hiveExist(String hiveNumber) async {
     var doc = await _firestore
         .collection('hives')
-        .where('hiveNumber', isEqualTo: hiveNumber)
+        .where(
+          'hiveNumber',
+          isEqualTo: hiveNumber,
+        )
+        .where(
+          'userID',
+          isEqualTo: _firebaseAuth.currentUser!.uid,
+        )
         .get();
 
     return doc.docs.isNotEmpty;
