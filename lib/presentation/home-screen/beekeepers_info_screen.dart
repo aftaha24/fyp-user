@@ -36,168 +36,159 @@ class _BeeKeepersInfoScreenState extends State<BeeKeepersInfoScreen> {
             }
             if (snapshot.hasData) {
               var beeKeepersList = snapshot.data;
-              return SingleChildScrollView(
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: List.generate(
-                        beeKeepersList!.length,
-                        (index) {
-                          final hive = beeKeepersList[index];
-                          return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 1.w),
-                            child: InkWell(
-                              onTap: () {
-                                // Navigator.push(context,
-                                //     MaterialPageRoute(builder: (context) {
-                                //   return UserScreen(
-                                //     hives: beeKeepersList,
-                                //     userName: hive.userName!,
-                                //   );
-                                // }));
-                              },
-                              child: Container(
-                                height: 230.h,
-                                width: MediaQuery.of(context).size.width,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color: Colors.black,
-                                    width: 2.w,
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 10.w, vertical: 10.h),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
-                                            Text(
-                                              "Hive Number: ${hive.hiveNumber}",
-                                              style: subHeadingStyle,
-                                            ),
-                                            // SizedBox(
-                                            //   width: 180,
-                                            //   child: Text(
-                                            //     "USER : ${hive.userName}",
-                                            //     style: subHeadingStyle,
-                                            //     overflow: TextOverflow.clip,
-                                            //   ),
-                                            // ),
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
-                                            Text(
-                                              "Location: ${hive.location}",
-                                              style: subHeadingStyle,
-                                            ),
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
-                                            Text(
-                                              "lat: ${hive.latitude}",
-                                              style: subHeadingStyle,
-                                            ),
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
-                                            Text(
-                                              "lon: ${hive.longitude}",
-                                              style: subHeadingStyle,
-                                            ),
+              return Column(
+                children: List.generate(
+                  beeKeepersList!.length,
+                  (index) {
+                    final hive = beeKeepersList[index];
+                    return Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 1.w),
+                      child: InkWell(
+                        onTap: () {
+                          // Navigator.push(context,
+                          //     MaterialPageRoute(builder: (context) {
+                          //   return UserScreen(
+                          //     hives: beeKeepersList,
+                          //     userName: hive.userName!,
+                          //   );
+                          // }));
+                        },
+                        child: Container(
+                          height: 210.h,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 2.w,
+                            ),
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.w, vertical: 10.h),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Text(
+                                        "Hive Number: ${hive.hiveNumber}",
+                                        style: subHeadingStyle,
+                                      ),
+                                      // SizedBox(
+                                      //   width: 180,
+                                      //   child: Text(
+                                      //     "USER : ${hive.userName}",
+                                      //     style: subHeadingStyle,
+                                      //     overflow: TextOverflow.clip,
+                                      //   ),
+                                      // ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Text(
+                                        "Location: ${hive.location}",
+                                        style: subHeadingStyle,
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Text(
+                                        "lat: ${hive.latitude}",
+                                        style: subHeadingStyle,
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Text(
+                                        "lon: ${hive.longitude}",
+                                        style: subHeadingStyle,
+                                      ),
 
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
-                                            Text(
-                                              hive.createdAt!,
-                                              style: subHeadingStyle,
-                                            ),
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  hive.amountHoney ?? '0',
-                                                  style: subHeadingStyle,
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Text(
+                                        hive.createdAt!,
+                                        style: subHeadingStyle,
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            hive.amountHoney ?? '0',
+                                            style: subHeadingStyle,
+                                          ),
+                                          const SizedBox(
+                                            width: 2,
+                                          ),
+                                          Text(
+                                            '(ml)',
+                                            style: subHeadingStyle,
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) => Scaffold(
+                                                appBar: AppBar(
+                                                  elevation: 0,
+                                                  backgroundColor:
+                                                      Colors.lightGreen,
                                                 ),
-                                                const SizedBox(
-                                                  width: 2,
-                                                ),
-                                                Text(
-                                                  '(ml)',
-                                                  style: subHeadingStyle,
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 10.h,
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (_) => Scaffold(
-                                                      appBar: AppBar(
-                                                        elevation: 0,
-                                                        backgroundColor:
-                                                            Colors.lightGreen,
-                                                      ),
-                                                      body: Center(
-                                                        child: QrImage(
-                                                          data: jsonEncode({
-                                                            "hiveNumber":
-                                                                hive.hiveNumber,
-                                                            "createdAt":
-                                                                hive.createdAt,
-                                                          }),
-                                                          version:
-                                                              QrVersions.auto,
-                                                          size: 200.0,
-                                                        ),
-                                                      ),
-                                                    ),
+                                                body: Center(
+                                                  child: QrImage(
+                                                    data: jsonEncode({
+                                                      "hiveNumber":
+                                                          hive.hiveNumber,
+                                                      "createdAt":
+                                                          hive.createdAt,
+                                                    }),
+                                                    version: QrVersions.auto,
+                                                    size: 200.0,
                                                   ),
-                                                );
-                                              },
-                                              child: Text(
-                                                'View QR Code',
-                                                style: subHeadingStyle.copyWith(
-                                                    color: Colors.green),
+                                                ),
                                               ),
                                             ),
-                                          ],
+                                          );
+                                        },
+                                        child: Text(
+                                          'View QR Code',
+                                          style: subHeadingStyle.copyWith(
+                                              color: Colors.green),
                                         ),
-                                        const Spacer(),
-                                        Image.network(
-                                          hive.driveLink!,
-                                          height: 130.h,
-                                          width: 150.w,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ),
+                                  const Spacer(),
+                                  Image.network(
+                                    hive.driveLink!,
+                                    height: 130.h,
+                                    width: 150.w,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ],
                               ),
                             ),
-                          );
-                        },
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               );
             }

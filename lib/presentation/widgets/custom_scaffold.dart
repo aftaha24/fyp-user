@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:traceebee_users_app/common/custom_appbar.dart';
 import 'package:traceebee_users_app/presentation/auth-screen/login_screen.dart';
 import 'package:traceebee_users_app/presentation/hive-screens/hive_analysis.dart';
 import 'package:traceebee_users_app/presentation/hive-screens/hive_screen.dart';
@@ -31,88 +32,62 @@ class _CustomScaffoldState extends State<CustomScaffold> {
     return Consumer<HomeProvider>(
       builder: (context, homeState, child) {
         return Scaffold(
-          backgroundColor: greenColor,
-          bottomNavigationBar: Container(
-            height: 50.h,
-            width: MediaQuery.of(context).size.width,
-            color: lightskinColor,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "CONTACT US",
-                      style: headingStyle.copyWith(
-                        fontSize: 15.sp,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Jln. UIAM, 53100, Selangor, Malaysia",
-                      style: subHeadingStyle.copyWith(
-                        fontSize: 12.sp,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
           body: Stack(
             children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 50.h,
-                    ),
-                    Container(
-                      height: 70.h,
-                      width: MediaQuery.of(context).size.width,
-                      color: skinColor,
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "TRACEBEE",
-                                style: headingStyle,
-                              ),
-                              const Spacer(),
-                              InkWell(
-                                onTap: () {
-                                  homeState.setMenuState();
-                                },
-                                child: Icon(
-                                  Icons.menu,
-                                  size: 40.w,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
+              Scaffold(
+                backgroundColor: greenColor,
+                bottomNavigationBar: Container(
+                  height: 50.h,
+                  width: MediaQuery.of(context).size.width,
+                  color: lightskinColor,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "CONTACT US",
+                            style: headingStyle.copyWith(
+                              fontSize: 15.sp,
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                    ),
-                    widget.body!,
-                  ],
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Jln. UIAM, 53100, Selangor, Malaysia",
+                            style: subHeadingStyle.copyWith(
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                appBar: CustomAppBar(
+                  onTap: () {
+                    homeState.setMenuState();
+                  },
+                ),
+                body: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      widget.body!,
+                    ],
+                  ),
                 ),
               ),
               homeState.menuState == MenuState.opened
                   ? Positioned(
-                      top: 75.h,
-                      right: 20.w,
+                      top: MediaQuery.of(context).size.width * 0.1,
+                      right: 18.w,
                       child: Container(
                         height:
                             homeState.hivesMenuState == HivesMenuState.closed
