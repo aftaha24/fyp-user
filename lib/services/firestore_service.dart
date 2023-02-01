@@ -88,7 +88,7 @@ class FireStoreService {
 
     await userRef.update({
       'totalAmountOfHoney': '$totalAmountOfHoney',
-      'createdAt': honeyModel.createdAt,
+      // 'createdAt': honeyModel.createdAt,
     });
     return 'Success';
   }
