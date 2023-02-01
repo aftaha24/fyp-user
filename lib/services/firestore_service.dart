@@ -60,6 +60,10 @@ class FireStoreService {
           'hiveNumber',
           isEqualTo: hiveNumber,
         )
+        .where(
+          'userID',
+          isEqualTo: _firebaseAuth.currentUser!.uid,
+        )
         .get();
     if (data.docs.isEmpty) {
       return 'Document doesn\'t exist for $hiveNumber Hive Number';
