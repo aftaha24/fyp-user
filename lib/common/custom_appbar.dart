@@ -13,7 +13,7 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
     return Container(
       color: skinColor,
       child: Container(
-        margin: EdgeInsets.only(top: 15.h),
+        margin: EdgeInsets.only(top: 35.h),
         height: 70.h,
         width: MediaQuery.of(context).size.width,
         color: skinColor,
@@ -45,5 +45,5 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(70.h);
+  Size get preferredSize => Size.fromHeight(60.h);
 }

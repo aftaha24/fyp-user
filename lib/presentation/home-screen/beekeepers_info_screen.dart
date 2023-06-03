@@ -54,7 +54,7 @@ class _BeeKeepersInfoScreenState extends State<BeeKeepersInfoScreen> {
                           // }));
                         },
                         child: Container(
-                          height: 210.h,
+                          height: 235.h,
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                             color: Colors.white,
